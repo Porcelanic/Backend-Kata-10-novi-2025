@@ -2,12 +2,12 @@ import "reflect-metadata";
 import express from "express";
 import serverless from "serverless-http";
 import solicitudRoutes from "../../routes/Solicitud.route";
-import cors from "cors";
+import { corsMiddleware } from "../../utils/cors";
 import { AppDataSource } from "../../database/config/typeorm.config";
 
 const app = express();
 
-app.use(cors());
+app.use(corsMiddleware);
 app.use(express.json());
 app.use("/solicitud", solicitudRoutes);
 
