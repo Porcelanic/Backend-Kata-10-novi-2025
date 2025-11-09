@@ -20,6 +20,15 @@ export class UsuarioRepository {
     return this.repository.find();
   }
 
+  async findAprobadoresByCentroCosto(centro_costo: number): Promise<Usuario[]> {
+    return this.repository.find({
+      where: {
+        cargo: "aprobador",
+        centro_costos: centro_costo,
+      },
+    });
+  }
+
   async save(usuario: CreateUsuarioDto | UpdateUsuarioDto): Promise<Usuario> {
     return this.repository.save(usuario);
   }

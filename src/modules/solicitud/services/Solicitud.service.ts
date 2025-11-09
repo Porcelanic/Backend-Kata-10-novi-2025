@@ -10,10 +10,12 @@ import {
 import { validateSolicitud } from "../utils/Solicitud.validations";
 import { Solicitud } from "../../../database/entities/Solicitud";
 import { UsuarioRepository } from "../../usuario/repositories/Usuario.repository";
+import { EmailService } from "../../../services/email.service";
 
 export class SolicitudService {
   private solicitudRepository: SolicitudRepository;
   private usuarioRepository: UsuarioRepository;
+  private emailService: EmailService;
 
   constructor(
     solicitudRepository: SolicitudRepository,
@@ -21,6 +23,7 @@ export class SolicitudService {
   ) {
     this.solicitudRepository = solicitudRepository;
     this.usuarioRepository = usuarioRepository;
+    this.emailService = new EmailService();
   }
 
   private mapToSolicitudDto(solicitud: Solicitud): SolicitudOutputDto {
@@ -64,10 +67,51 @@ export class SolicitudService {
       }
 
       const solicitud = await this.solicitudRepository.save(dto);
+
+      // Enviar emails a los aprobadores
+      await this.notifyAprobadores(solicitud);
+
       return { solicitud: this.mapToSolicitudDto(solicitud) };
     } catch (err) {
       console.log("error creating solicitud", err);
       return { errors: ["error creating solicitud"] };
+    }
+  }
+
+  private async notifyAprobadores(solicitud: Solicitud): Promise<void> {
+    try {
+      const aprobadores =
+        await this.usuarioRepository.findAprobadoresByCentroCosto(
+          solicitud.centro_costo
+        );
+
+      if (aprobadores.length === 0) {
+        console.log(
+          `No aprobadores found for centro_costo: ${solicitud.centro_costo}`
+        );
+        return;
+      }
+
+      console.log(`Sending notifications to ${aprobadores.length} aprobadores`);
+
+      // Crear emails para cada aprobador
+      const emails = aprobadores.map((aprobador) =>
+        this.emailService.createSolicitudNotificationEmail(aprobador.correo, {
+          id_solicitud: solicitud.id_solicitud,
+          titulo: solicitud.titulo,
+          tipo_solicitud: solicitud.tipo_solicitud,
+          descripcion: solicitud.descripcion,
+          correo_solicitante: solicitud.correo_solicitante,
+          fecha_solicitud: solicitud.fecha_solicitud,
+          centro_costo: solicitud.centro_costo,
+        })
+      );
+
+      // Enviar todos los emails
+      await this.emailService.sendMultipleEmails(emails);
+    } catch (err) {
+      // No fallar la creación de la solicitud si falla el envío de emails
+      console.error("Error sending notification emails:", err);
     }
   }
 
@@ -152,6 +196,9 @@ export class SolicitudService {
         dto.correo_solicitante = dto.correo_solicitante.toLowerCase().trim();
       }
 
+      // Guardar el estado anterior para comparar
+      const estadoAnterior = existingSolicitud.estado;
+
       const dataToValidate: UpdateSolicitudDto = {
         titulo:
           dto.titulo !== undefined ? dto.titulo : existingSolicitud.titulo,
@@ -196,10 +243,49 @@ export class SolicitudService {
         id_solicitud,
       } as Solicitud);
 
+      // Si el estado cambió, notificar al solicitante
+      if (dto.estado !== undefined && estadoAnterior !== dto.estado) {
+        await this.notifySolicitanteEstadoCambio(
+          updatedSolicitud,
+          estadoAnterior
+        );
+      }
+
       return { solicitud: this.mapToSolicitudDto(updatedSolicitud) };
     } catch (err) {
       console.log("error updating solicitud", err);
       return { errors: ["error updating solicitud"] };
+    }
+  }
+
+  private async notifySolicitanteEstadoCambio(
+    solicitud: Solicitud,
+    estadoAnterior: string
+  ): Promise<void> {
+    try {
+      console.log(
+        `Sending estado change notification to: ${solicitud.correo_solicitante}`
+      );
+
+      const email = this.emailService.createEstadoCambioNotificationEmail(
+        solicitud.correo_solicitante,
+        {
+          id_solicitud: solicitud.id_solicitud,
+          titulo: solicitud.titulo,
+          tipo_solicitud: solicitud.tipo_solicitud,
+          estadoAnterior: estadoAnterior,
+          estadoNuevo: solicitud.estado,
+          descripcion: solicitud.descripcion,
+          fecha_solicitud: solicitud.fecha_solicitud,
+          centro_costo: solicitud.centro_costo,
+          comentario_adicional: solicitud.comentario_adicional || undefined,
+        }
+      );
+
+      await this.emailService.sendEmail(email);
+    } catch (err) {
+      // No fallar la actualización si falla el envío del email
+      console.error("Error sending estado change notification:", err);
     }
   }
 

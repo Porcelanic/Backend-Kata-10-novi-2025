@@ -53,3 +53,14 @@ variable "lambda_runtime" {
   type        = string
   default     = "nodejs18.x"
 }
+
+variable "sendgrid_api_key" {
+  description = "SendGrid API Key"
+  type        = string
+  sensitive   = true
+}
+
+variable "sendgrid_from_email" {
+  description = "SendGrid From Email"
+  type        = string
+}

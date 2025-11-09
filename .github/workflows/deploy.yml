@@ -9,7 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DB_SSL: ${{ vars.DB_SSL }}
+      TF_VAR_sendgrid_api_key: ${{ secrets.TF_VAR_SENDGRID_API_KEY }}
+      TF_VAR_sendgrid_from_email: ${{ secrets.TF_VAR_SENDGRID_FROM_EMAIL }}
 
     steps:
       - name: Checkout code

@@ -1,3 +1,16 @@
+# Common environment variables for all Lambda functions
+locals {
+  lambda_env_vars = {
+    DB_HOST             = aws_db_instance.postgres.address
+    DB_PORT             = aws_db_instance.postgres.port
+    DB_NAME             = var.db_name
+    DB_USER             = var.db_username
+    DB_PASSWORD         = var.db_password
+    SENDGRID_API_KEY    = var.sendgrid_api_key
+    SENDGRID_FROM_EMAIL = var.sendgrid_from_email
+  }
+}
+
 # Lambda Function - Usuario
 resource "aws_lambda_function" "usuario" {
   filename         = "../dist/usuario.zip"
@@ -15,13 +28,7 @@ resource "aws_lambda_function" "usuario" {
   }
 
   environment {
-    variables = {
-      DB_HOST     = aws_db_instance.postgres.address
-      DB_PORT     = aws_db_instance.postgres.port
-      DB_NAME     = var.db_name
-      DB_USER     = var.db_username
-      DB_PASSWORD = var.db_password
-    }
+    variables = local.lambda_env_vars
   }
 
   tags = {
@@ -51,13 +58,7 @@ resource "aws_lambda_function" "solicitud" {
   }
 
   environment {
-    variables = {
-      DB_HOST     = aws_db_instance.postgres.address
-      DB_PORT     = aws_db_instance.postgres.port
-      DB_NAME     = var.db_name
-      DB_USER     = var.db_username
-      DB_PASSWORD = var.db_password
-    }
+    variables = local.lambda_env_vars
   }
 
   tags = {
@@ -99,13 +100,7 @@ resource "aws_lambda_function" "historico" {
   }
 
   environment {
-    variables = {
-      DB_HOST     = aws_db_instance.postgres.address
-      DB_PORT     = aws_db_instance.postgres.port
-      DB_NAME     = var.db_name
-      DB_USER     = var.db_username
-      DB_PASSWORD = var.db_password
-    }
+    variables = local.lambda_env_vars
   }
 
   tags = {
@@ -141,13 +136,7 @@ resource "aws_lambda_function" "solicitud_acceso" {
   }
 
   environment {
-    variables = {
-      DB_HOST     = aws_db_instance.postgres.address
-      DB_PORT     = aws_db_instance.postgres.port
-      DB_NAME     = var.db_name
-      DB_USER     = var.db_username
-      DB_PASSWORD = var.db_password
-    }
+    variables = local.lambda_env_vars
   }
 
   tags = {
@@ -183,13 +172,7 @@ resource "aws_lambda_function" "solicitud_despliegue" {
   }
 
   environment {
-    variables = {
-      DB_HOST     = aws_db_instance.postgres.address
-      DB_PORT     = aws_db_instance.postgres.port
-      DB_NAME     = var.db_name
-      DB_USER     = var.db_username
-      DB_PASSWORD = var.db_password
-    }
+    variables = local.lambda_env_vars
   }
 
   tags = {
