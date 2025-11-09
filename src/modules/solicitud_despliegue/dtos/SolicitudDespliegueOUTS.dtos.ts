@@ -1,5 +1,5 @@
 export interface SolicitudDespliegueDto {
-  id_solicitud: number;
+  id_solicitud: string;
   link_pull_request: string;
   documentacion_despliegue: string;
   historia_jira: string;

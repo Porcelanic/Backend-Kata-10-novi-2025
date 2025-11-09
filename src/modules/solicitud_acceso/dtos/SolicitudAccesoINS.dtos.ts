@@ -1,5 +1,5 @@
 export interface SolicitudAccesoDto {
-  id_solicitud: number;
+  id_solicitud: string;
   aplicacion: string;
   rol_en_aplicacion: string;
 }

@@ -10,7 +10,7 @@ export class SolicitudRepository {
     this.repository = AppDataSource.getRepository(Solicitud);
   }
 
-  async findOneById(id_solicitud: number): Promise<Solicitud | null> {
+  async findOneById(id_solicitud: string): Promise<Solicitud | null> {
     return this.repository.findOne({
       where: { id_solicitud },
       relations: ["solicitudAcceso", "solicitudDespliegue"],
@@ -41,7 +41,7 @@ export class SolicitudRepository {
     return this.repository.save(solicitud);
   }
 
-  async delete(id_solicitud: number): Promise<DeleteResult> {
+  async delete(id_solicitud: string): Promise<DeleteResult> {
     return this.repository.delete({ id_solicitud });
   }
 }

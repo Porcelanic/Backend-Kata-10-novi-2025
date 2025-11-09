@@ -19,8 +19,8 @@ export class Historico {
   @Column({ type: "text", nullable: true })
   comentario_adicional!: string | null;
 
-  @Column()
-  id_solicitud!: number;
+  @Column("uuid")
+  id_solicitud!: string;
 
   @Column({ length: 255 })
   correo_aprobador!: string;

@@ -3,8 +3,8 @@ import { Solicitud } from "./Solicitud";
 
 @Entity()
 export class SolicitudAcceso {
-  @PrimaryColumn()
-  id_solicitud!: number;
+  @PrimaryColumn("uuid")
+  id_solicitud!: string;
 
   @Column({ length: 100 })
   aplicacion!: string;

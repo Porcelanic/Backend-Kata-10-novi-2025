@@ -17,7 +17,7 @@ export class HistoricoRepository {
     });
   }
 
-  async findBySolicitudId(id_solicitud: number): Promise<Historico[]> {
+  async findBySolicitudId(id_solicitud: string): Promise<Historico[]> {
     return this.repository.find({
       where: { id_solicitud },
       relations: ["solicitud", "aprobador"],

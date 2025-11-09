@@ -3,8 +3,8 @@ import { Solicitud } from "./Solicitud";
 
 @Entity()
 export class SolicitudDespliegue {
-  @PrimaryColumn()
-  id_solicitud!: number;
+  @PrimaryColumn("uuid")
+  id_solicitud!: string;
 
   @Column({ length: 255 })
   link_pull_request!: string;

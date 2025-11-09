@@ -59,8 +59,8 @@ export class HistoricoController {
 
   async getHistoricosBySolicitudId(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id_solicitud, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id_solicitud;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }

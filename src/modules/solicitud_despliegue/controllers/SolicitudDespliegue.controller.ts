@@ -52,8 +52,8 @@ export class SolicitudDespliegueController {
 
   async getSolicitudDespliegueById(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }
@@ -102,8 +102,8 @@ export class SolicitudDespliegueController {
 
   async updateSolicitudDespliegue(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }
@@ -128,8 +128,8 @@ export class SolicitudDespliegueController {
 
   async deleteSolicitudDespliegue(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }

@@ -1,5 +1,5 @@
 export interface SolicitudDto {
-  id_solicitud: number;
+  id_solicitud: string;
   titulo: string;
   tipo_solicitud: string;
   estado: string;
@@ -9,12 +9,12 @@ export interface SolicitudDto {
   comentario_adicional?: string;
   correo_solicitante: string;
   solicitudAcceso?: {
-    id_solicitud: number;
+    id_solicitud: string;
     aplicacion: string;
     rol_en_aplicacion: string;
   };
   solicitudDespliegue?: {
-    id_solicitud: number;
+    id_solicitud: string;
     link_pull_request: string;
     documentacion_despliegue: string;
     historia_jira: string;

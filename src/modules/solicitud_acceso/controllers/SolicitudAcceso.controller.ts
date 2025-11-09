@@ -46,8 +46,8 @@ export class SolicitudAccesoController {
 
   async getSolicitudAccesoById(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud acceso ID"] });
         return;
       }
@@ -88,8 +88,8 @@ export class SolicitudAccesoController {
 
   async updateSolicitudAcceso(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud acceso ID"] });
         return;
       }
@@ -111,8 +111,8 @@ export class SolicitudAccesoController {
 
   async deleteSolicitudAcceso(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud acceso ID"] });
         return;
       }

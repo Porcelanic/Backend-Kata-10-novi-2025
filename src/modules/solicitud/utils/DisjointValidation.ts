@@ -2,7 +2,7 @@ import { SolicitudAccesoRepository } from "../../solicitud_acceso/repositories/S
 import { SolicitudDespliegueRepository } from "../../solicitud_despliegue/repositories/SolicitudDespliegue.repository";
 
 export async function validateDisjointConstraint(
-  id_solicitud: number,
+  id_solicitud: string,
   tipoQueSeVaACrear: "acceso" | "despliegue",
   solicitudAccesoRepo: SolicitudAccesoRepository,
   solicitudDespliegueRepo: SolicitudDespliegueRepository

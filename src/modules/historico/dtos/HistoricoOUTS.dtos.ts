@@ -2,7 +2,7 @@ export interface HistoricoDto {
   id_historico: number;
   fecha_accion: Date;
   comentario_adicional?: string | null;
-  id_solicitud: number;
+  id_solicitud: string;
   correo_aprobador: string;
 }
 

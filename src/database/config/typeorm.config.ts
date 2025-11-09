@@ -39,7 +39,5 @@ export const AppDataSource = new DataSource({
   ],
   migrations: [],
   subscribers: [],
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: false,
 });

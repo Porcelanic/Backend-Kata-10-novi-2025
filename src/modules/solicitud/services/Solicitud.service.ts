@@ -85,7 +85,7 @@ export class SolicitudService {
   }
 
   async getSolicitudById(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<GetSolicitudByIdResult> {
     try {
       const solicitud = await this.solicitudRepository.findOneById(
@@ -136,7 +136,7 @@ export class SolicitudService {
   }
 
   async updateSolicitud(
-    id_solicitud: number,
+    id_solicitud: string,
     dto: UpdateSolicitudDto
   ): Promise<UpdateSolicitudResult> {
     try {
@@ -203,7 +203,7 @@ export class SolicitudService {
     }
   }
 
-  async deleteSolicitud(id_solicitud: number): Promise<DeleteSolicitudResult> {
+  async deleteSolicitud(id_solicitud: string): Promise<DeleteSolicitudResult> {
     try {
       const result = await this.solicitudRepository.delete(id_solicitud);
       if (result.affected === 0) {

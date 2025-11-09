@@ -6,6 +6,7 @@ import {
   JoinColumn,
   OneToOne,
   OneToMany,
+  Generated,
 } from "typeorm";
 import { Usuario } from "./Usuario";
 import { SolicitudAcceso } from "./SolicitudAcceso";
@@ -14,8 +15,8 @@ import { Historico } from "./Historico";
 
 @Entity()
 export class Solicitud {
-  @PrimaryGeneratedColumn()
-  id_solicitud!: number;
+  @PrimaryGeneratedColumn("uuid")
+  id_solicitud!: string;
 
   @Column({ length: 100 })
   titulo!: string;

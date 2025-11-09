@@ -46,8 +46,12 @@ export class SolicitudDespliegueService {
     dto: SolicitudDespliegueDto
   ): Promise<GetSolicitudDespliegueByIdResult> {
     try {
-      if (dto.id_solicitud === undefined || dto.id_solicitud === null) {
-        dto.id_solicitud = -1;
+      if (
+        dto.id_solicitud === undefined ||
+        dto.id_solicitud === null ||
+        dto.id_solicitud === ""
+      ) {
+        dto.id_solicitud = ""; // Will fail validation if empty
       }
       const errors = await validateSolicitudDespliegue(
         dto,
@@ -101,7 +105,7 @@ export class SolicitudDespliegueService {
   }
 
   async getSolicitudDespliegueById(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<GetSolicitudDespliegueByIdResult> {
     try {
       const solicitudDespliegue =
@@ -141,7 +145,7 @@ export class SolicitudDespliegueService {
   }
 
   async updateSolicitudDespliegue(
-    id_solicitud: number,
+    id_solicitud: string,
     dto: UpdateSolicitudDespliegueDto
   ): Promise<UpdateSolicitudDespliegueResult> {
     try {
@@ -193,7 +197,7 @@ export class SolicitudDespliegueService {
   }
 
   async deleteSolicitudDespliegue(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<DeleteSolicitudDespliegueResult> {
     try {
       const result = await this.solicitudDespliegueRepository.delete(

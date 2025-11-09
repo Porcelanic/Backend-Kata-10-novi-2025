@@ -92,7 +92,7 @@ export class HistoricoService {
   }
 
   async getHistoricosBySolicitudId(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<GetAllHistoricosResult> {
     try {
       const historicos = await this.historicoRepository.findBySolicitudId(

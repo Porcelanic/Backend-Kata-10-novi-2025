@@ -40,8 +40,8 @@ export class SolicitudController {
 
   async getSolicitudById(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }
@@ -64,8 +64,9 @@ export class SolicitudController {
         res.status(400).json({ errors: ["Invalid centro_costo"] });
         return;
       }
-      const result =
-        await this.solicitudService.getSolicitudByCentroCosto(centro_costo);
+      const result = await this.solicitudService.getSolicitudByCentroCosto(
+        centro_costo
+      );
       if (result.errors) {
         res.status(404).json({ errors: result.errors });
       } else {
@@ -80,8 +81,9 @@ export class SolicitudController {
   async getSolicitudByCorreo(req: Request, res: Response): Promise<void> {
     try {
       const correo_solicitante = req.params.correo_solicitante;
-      const result =
-        await this.solicitudService.getSolicitudByCorreo(correo_solicitante);
+      const result = await this.solicitudService.getSolicitudByCorreo(
+        correo_solicitante
+      );
       if (result.errors) {
         res.status(404).json({ errors: result.errors });
       } else {
@@ -95,8 +97,8 @@ export class SolicitudController {
 
   async updateSolicitud(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }
@@ -118,8 +120,8 @@ export class SolicitudController {
 
   async deleteSolicitud(req: Request, res: Response): Promise<void> {
     try {
-      const id_solicitud = parseInt(req.params.id, 10);
-      if (isNaN(id_solicitud)) {
+      const id_solicitud = req.params.id;
+      if (!id_solicitud) {
         res.status(400).json({ errors: ["Invalid solicitud ID"] });
         return;
       }

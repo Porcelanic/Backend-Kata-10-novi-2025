@@ -45,8 +45,12 @@ export class SolicitudAccesoService {
     dto: SolicitudAccesoDto
   ): Promise<GetSolicitudAccesoByIdResult> {
     try {
-      if (dto.id_solicitud === undefined || dto.id_solicitud === null) {
-        dto.id_solicitud = -1;
+      if (
+        dto.id_solicitud === undefined ||
+        dto.id_solicitud === null ||
+        dto.id_solicitud === ""
+      ) {
+        dto.id_solicitud = ""; // Will fail validation if empty
       }
       const errors = await validateSolicitudAcceso(
         dto,
@@ -94,7 +98,7 @@ export class SolicitudAccesoService {
   }
 
   async getSolicitudAccesoById(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<GetSolicitudAccesoByIdResult> {
     try {
       const solicitudAcceso = await this.solicitudAccesoRepository.findOneById(
@@ -133,7 +137,7 @@ export class SolicitudAccesoService {
   }
 
   async updateSolicitudAcceso(
-    id_solicitud: number,
+    id_solicitud: string,
     dto: UpdateSolicitudAccesoDto
   ): Promise<UpdateSolicitudAccesoResult> {
     try {
@@ -178,7 +182,7 @@ export class SolicitudAccesoService {
   }
 
   async deleteSolicitudAcceso(
-    id_solicitud: number
+    id_solicitud: string
   ): Promise<DeleteSolicitudAccesoResult> {
     try {
       const result = await this.solicitudAccesoRepository.delete(id_solicitud);

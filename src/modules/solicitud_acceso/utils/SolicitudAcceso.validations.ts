@@ -11,10 +11,10 @@ export async function validateSolicitudAcceso(
   const errors: string[] = [];
 
   if ("id_solicitud" in dto) {
-    if (dto.id_solicitud === -1) {
+    if (!dto.id_solicitud || dto.id_solicitud.trim() === "") {
       errors.push("Id_solicitud is required.");
-    } else if (typeof dto.id_solicitud !== "number") {
-      errors.push("Id_solicitud must be a number.");
+    } else if (typeof dto.id_solicitud !== "string") {
+      errors.push("Id_solicitud must be a string (UUID).");
     } else {
       const solicitud = await solicitudRepository.findOneById(dto.id_solicitud);
       if (!solicitud) {
