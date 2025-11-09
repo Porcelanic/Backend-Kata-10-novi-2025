@@ -13,6 +13,7 @@ export class SolicitudRepository {
   async findOneById(id_solicitud: number): Promise<Solicitud | null> {
     return this.repository.findOne({
       where: { id_solicitud },
+      relations: ["solicitudAcceso", "solicitudDespliegue"],
     });
   }
 
@@ -29,7 +30,9 @@ export class SolicitudRepository {
   }
 
   async findAll(): Promise<Solicitud[]> {
-    return this.repository.find();
+    return this.repository.find({
+      relations: ["solicitudAcceso", "solicitudDespliegue"],
+    });
   }
 
   async save(

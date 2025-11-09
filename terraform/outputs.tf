@@ -13,6 +13,21 @@ output "solicitud_lambda_arn" {
   value       = aws_lambda_function.solicitud.arn
 }
 
+output "historico_lambda_arn" {
+  description = "Historico Lambda ARN"
+  value       = aws_lambda_function.historico.arn
+}
+
+output "solicitud_acceso_lambda_arn" {
+  description = "Solicitud Acceso Lambda ARN"
+  value       = aws_lambda_function.solicitud_acceso.arn
+}
+
+output "solicitud_despliegue_lambda_arn" {
+  description = "Solicitud Despliegue Lambda ARN"
+  value       = aws_lambda_function.solicitud_despliegue.arn
+}
+
 output "rds_endpoint" {
   description = "RDS endpoint"
   value       = aws_db_instance.postgres.endpoint

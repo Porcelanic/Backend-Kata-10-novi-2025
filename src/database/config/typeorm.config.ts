@@ -30,13 +30,16 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [Usuario, Historico, Solicitud, SolicitudAcceso, SolicitudDespliegue],
+  entities: [
+    Usuario,
+    Historico,
+    Solicitud,
+    SolicitudAcceso,
+    SolicitudDespliegue,
+  ],
   migrations: [],
   subscribers: [],
-  ssl:
-    process.env.DB_SSL === "true"
-      ? {
-          rejectUnauthorized: false,
-        }
-      : false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });

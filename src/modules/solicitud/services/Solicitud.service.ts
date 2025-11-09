@@ -34,6 +34,22 @@ export class SolicitudService {
       fecha_solicitud: solicitud.fecha_solicitud,
       comentario_adicional: solicitud.comentario_adicional || undefined,
       correo_solicitante: solicitud.correo_solicitante,
+      solicitudAcceso: solicitud.solicitudAcceso
+        ? {
+            id_solicitud: solicitud.solicitudAcceso.id_solicitud,
+            aplicacion: solicitud.solicitudAcceso.aplicacion,
+            rol_en_aplicacion: solicitud.solicitudAcceso.rol_en_aplicacion,
+          }
+        : undefined,
+      solicitudDespliegue: solicitud.solicitudDespliegue
+        ? {
+            id_solicitud: solicitud.solicitudDespliegue.id_solicitud,
+            link_pull_request: solicitud.solicitudDespliegue.link_pull_request,
+            documentacion_despliegue:
+              solicitud.solicitudDespliegue.documentacion_despliegue,
+            historia_jira: solicitud.solicitudDespliegue.historia_jira,
+          }
+        : undefined,
     };
   }
 

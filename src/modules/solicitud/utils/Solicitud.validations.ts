@@ -1,5 +1,9 @@
 import { SolicitudDto, UpdateSolicitudDto } from "../dtos/SolicitudINS.dtos";
 import { UsuarioRepository } from "../../usuario/repositories/Usuario.repository";
+import {
+  TIPOS_SOLICITUD_VALIDOS,
+  isValidTipoSolicitud,
+} from "../constants/TiposSolicitud";
 
 export async function validateSolicitud(
   dto: SolicitudDto | UpdateSolicitudDto,
@@ -17,6 +21,12 @@ export async function validateSolicitud(
     errors.push("Tipo_solicitud is required.");
   } else if (dto.tipo_solicitud.length > 50) {
     errors.push("Tipo_solicitud cannot exceed 50 characters.");
+  } else if (!isValidTipoSolicitud(dto.tipo_solicitud)) {
+    errors.push(
+      `Tipo_solicitud must be either '${TIPOS_SOLICITUD_VALIDOS.join(
+        "' or '"
+      )}'.`
+    );
   }
 
   if (!dto.estado || dto.estado.trim() === "") {

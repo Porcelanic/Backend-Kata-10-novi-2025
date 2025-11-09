@@ -15,7 +15,7 @@ export class SolicitudDespliegue {
   @Column({ length: 255 })
   historia_jira!: string;
 
-  @OneToOne(() => Solicitud)
+  @OneToOne(() => Solicitud, (solicitud) => solicitud.solicitudDespliegue)
   @JoinColumn({ name: "id_solicitud" })
   solicitud!: Solicitud;
 }

@@ -39,16 +39,20 @@ jobs:
 
       - name: Package Lambda functions
         run: |
-          # Copiar node_modules al directorio dist
           cp -r node_modules dist/
           cp package.json dist/
 
-          # Crear ZIP desde el directorio dist con toda la estructura
           cd dist
-          zip -r usuario.zip . -x "*.map"
 
-          # Copiar el mismo para solicitud (comparten la misma estructura)
-          cp usuario.zip solicitud.zip
+          zip -r base.zip . -x "*.map"
+
+          cp base.zip usuario.zip
+          cp base.zip solicitud.zip
+          cp base.zip historico.zip
+          cp base.zip solicitud_acceso.zip
+          cp base.zip solicitud_despliegue.zip
+
+          rm base.zip
 
           cd ..
 

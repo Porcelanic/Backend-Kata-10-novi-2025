@@ -12,7 +12,7 @@ export class SolicitudAcceso {
   @Column({ length: 100 })
   rol_en_aplicacion!: string;
 
-  @OneToOne(() => Solicitud)
+  @OneToOne(() => Solicitud, (solicitud) => solicitud.solicitudAcceso)
   @JoinColumn({ name: "id_solicitud" })
   solicitud!: Solicitud;
 }
