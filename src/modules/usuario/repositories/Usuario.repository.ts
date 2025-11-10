@@ -1,6 +1,6 @@
 import { AppDataSource } from "../../../database/config/typeorm.config";
 import { Usuario } from "../../../database/entities/Usuario";
-import { Repository, DeleteResult } from "typeorm";
+import { Repository, DeleteResult, ILike } from "typeorm";
 import { CreateUsuarioDto, UpdateUsuarioDto } from "../dtos/UsuarioINS.dtos";
 
 export class UsuarioRepository {
@@ -23,7 +23,7 @@ export class UsuarioRepository {
   async findAprobadoresByCentroCosto(centro_costo: number): Promise<Usuario[]> {
     return this.repository.find({
       where: {
-        cargo: "aprobador",
+        cargo: ILike("aprobador"),
         centro_costos: centro_costo,
       },
     });
