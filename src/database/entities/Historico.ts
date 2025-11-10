@@ -25,7 +25,7 @@ export class Historico {
   @Column({ length: 255 })
   correo_aprobador!: string;
 
-  @ManyToOne(() => Solicitud)
+  @ManyToOne(() => Solicitud, { onDelete: "CASCADE" })
   @JoinColumn({ name: "id_solicitud" })
   solicitud!: Solicitud;
 
