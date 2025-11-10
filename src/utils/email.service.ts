@@ -60,7 +60,6 @@ export class EmailService {
     }
   }
 
-  // Template para notificar a aprobadores sobre nueva solicitud
   createSolicitudNotificationEmail(
     toEmail: string,
     solicitudData: {
@@ -75,7 +74,6 @@ export class EmailService {
   ): EmailData {
     const subject = `Nueva Solicitud: ${solicitudData.titulo}`;
 
-    // Convertir fecha a Date si es string
     const fecha =
       solicitudData.fecha_solicitud instanceof Date
         ? solicitudData.fecha_solicitud
@@ -171,7 +169,6 @@ export class EmailService {
     };
   }
 
-  // Template para notificar al solicitante sobre cambio de estado
   createEstadoCambioNotificationEmail(
     toEmail: string,
     solicitudData: {
@@ -188,7 +185,6 @@ export class EmailService {
   ): EmailData {
     const subject = `Cambio de Estado en su Solicitud: ${solicitudData.titulo}`;
 
-    // Convertir fecha a Date si es string
     const fecha =
       solicitudData.fecha_solicitud instanceof Date
         ? solicitudData.fecha_solicitud

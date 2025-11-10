@@ -51,7 +51,7 @@ export class SolicitudDespliegueService {
         dto.id_solicitud === null ||
         dto.id_solicitud === ""
       ) {
-        dto.id_solicitud = ""; // Will fail validation if empty
+        dto.id_solicitud = "";
       }
       const errors = await validateSolicitudDespliegue(
         dto,

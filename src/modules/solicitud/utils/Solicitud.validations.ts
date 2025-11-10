@@ -60,7 +60,6 @@ export async function validateSolicitud(
     if (!emailRegex.test(dto.correo_solicitante)) {
       errors.push("Must be a valid email for correo_solicitante.");
     } else {
-      // Validar que el usuario existe en la base de datos
       const usuarioExistente = await usuarioRepository.findOneByCorreo(
         dto.correo_solicitante.toLowerCase().trim()
       );

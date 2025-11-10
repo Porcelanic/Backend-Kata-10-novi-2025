@@ -68,7 +68,6 @@ export class SolicitudService {
 
       const solicitud = await this.solicitudRepository.save(dto);
 
-      // Enviar emails a los aprobadores
       await this.notifyAprobadores(solicitud);
 
       return { solicitud: this.mapToSolicitudDto(solicitud) };
@@ -94,7 +93,6 @@ export class SolicitudService {
 
       console.log(`Sending notifications to ${aprobadores.length} aprobadores`);
 
-      // Crear emails para cada aprobador
       const emails = aprobadores.map((aprobador) =>
         this.emailService.createSolicitudNotificationEmail(aprobador.correo, {
           id_solicitud: solicitud.id_solicitud,
@@ -107,10 +105,8 @@ export class SolicitudService {
         })
       );
 
-      // Enviar todos los emails
       await this.emailService.sendMultipleEmails(emails);
     } catch (err) {
-      // No fallar la creación de la solicitud si falla el envío de emails
       console.error("Error sending notification emails:", err);
     }
   }
@@ -196,7 +192,6 @@ export class SolicitudService {
         dto.correo_solicitante = dto.correo_solicitante.toLowerCase().trim();
       }
 
-      // Guardar el estado anterior para comparar
       const estadoAnterior = existingSolicitud.estado;
 
       const dataToValidate: UpdateSolicitudDto = {
@@ -243,7 +238,6 @@ export class SolicitudService {
         id_solicitud,
       } as Solicitud);
 
-      // Si el estado cambió, notificar al solicitante
       if (dto.estado !== undefined && estadoAnterior !== dto.estado) {
         await this.notifySolicitanteEstadoCambio(
           updatedSolicitud,
@@ -284,7 +278,6 @@ export class SolicitudService {
 
       await this.emailService.sendEmail(email);
     } catch (err) {
-      // No fallar la actualización si falla el envío del email
       console.error("Error sending estado change notification:", err);
     }
   }
