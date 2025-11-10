@@ -51,7 +51,7 @@ variable "vpc_cidr" {
 variable "lambda_runtime" {
   description = "Lambda runtime"
   type        = string
-  default     = "nodejs18.x"
+  default     = "nodejs22.x"
 }
 
 variable "sendgrid_api_key" {
