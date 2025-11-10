@@ -10,7 +10,7 @@ import {
 import { validateSolicitud } from "../utils/Solicitud.validations";
 import { Solicitud } from "../../../database/entities/Solicitud";
 import { UsuarioRepository } from "../../usuario/repositories/Usuario.repository";
-import { EmailService } from "../../../services/email.service";
+import { EmailService } from "../../../utils/email.service";
 
 export class SolicitudService {
   private solicitudRepository: SolicitudRepository;
